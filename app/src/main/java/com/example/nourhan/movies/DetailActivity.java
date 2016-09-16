@@ -31,7 +31,6 @@ import java.util.Set;
  */
 
 public class DetailActivity extends ActionBarActivity {
-    private final String LOG_TAG = DetailActivity.class.getSimpleName();
 public DetailActivity(){
 
 }

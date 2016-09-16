@@ -34,11 +34,6 @@ boolean mTwoPane;
     }
 
 
-    public boolean onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.movies_fragment, menu);
-        return true;
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();

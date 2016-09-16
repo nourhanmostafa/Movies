@@ -58,8 +58,6 @@
             android:id="@+id/favourite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:clickable="true"
-            android:onClick="onToggleStar"
             android:src="@drawable/notfav"
             android:background="#00ffffff"
             android:layout_toRightOf="@id/image_view"

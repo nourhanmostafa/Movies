@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ import com.example.nourhan.movies.Trailers;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -34,8 +36,10 @@ public class DetailFragment extends Fragment {
     private ImageButton favourite;
     Reviews reviews;
     Trailers trailers;
+    MovieListener movieListener;
     Set<String> s=new HashSet<String>();
     Set<String>hs=new HashSet<String>();
+    Set<String>h=new HashSet<String>();
     public DetailFragment(){
 
     }
@@ -51,16 +55,13 @@ public class DetailFragment extends Fragment {
     private boolean readStae() {
         SharedPreferences aSharedPreferenes =getContext().getSharedPreferences(
                 "Favourite", Context.MODE_PRIVATE);
-        return aSharedPreferenes.getBoolean("State", true);
+        return aSharedPreferenes.getBoolean("State",true);
     }
-
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         final View rootView1 = inflater.inflate(R.layout.detail_layout,container, false);
-        //Intent intent =getActivity().getIntent();
-        //final Detail d = intent.getParcelableExtra("details");
         final Detail d=getArguments().getParcelable("details");
         imageView = (ImageView) rootView1.findViewById(R.id.image_view);
         Picasso.with(imageView.getContext()).load(d.getUrl()).into(imageView);
@@ -81,7 +82,6 @@ public class DetailFragment extends Fragment {
         favourite=(ImageButton)rootView1.findViewById(R.id.favourite);
         s=sharedPref.getStringSet("set",new HashSet<String>());
         final Gson gson = new Gson();
-        //  String contain=gson.toJson(d);
         Iterator iter = s.iterator();
         while (iter.hasNext()) {
             String json= (String) iter.next();
@@ -113,6 +113,7 @@ public class DetailFragment extends Fragment {
                     editor.commit();
                     editor.putStringSet("set",hs);
                     editor.commit();
+
                 } else {
                     favourite.setBackgroundResource(R.drawable.favourite1);
                     isFavourite = true;

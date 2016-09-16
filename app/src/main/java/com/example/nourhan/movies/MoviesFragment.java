@@ -46,7 +46,6 @@ public class MoviesFragment extends Fragment {
     ArrayList<Detail> urls = new ArrayList<Detail>();
     GridViewAdapter gridViewAdapter;
     MovieListener movieListener;
-    private int mPosition = GridView.INVALID_POSITION;
 
 
     public MoviesFragment() {
@@ -73,11 +72,15 @@ public class MoviesFragment extends Fragment {
                 Detail d=gson.fromJson(json,Detail.class);
                 fav.add(d);
             }
+            if(movieListener.getPane()&&fav.size()>0){
+                movieListener.setSelectedMovie(fav.get(0));}
             gridViewAdapter.adapter(fav);
             gridViewAdapter.notifyDataSetChanged();
         }
        else{
-            ApiTask.execute(display);}
+            ApiTask.execute(display);
+        }
+
     }
 
     @Override
@@ -105,33 +108,12 @@ public class MoviesFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Detail movies = (Detail) gridViewAdapter.getData(position);
                 movieListener.setSelectedMovie(movies);
-               // mPosition=position;
             }
         });
-
-       /* if (savedInstanceState != null && savedInstanceState.containsKey("position")) {
-            // The listview probably hasn't even been populated yet.  Actually perform the
-            // swapout in onLoadFinished.
-            mPosition = savedInstanceState.getInt("position");
-        }
-        */
         return rootView;
 
     }
 
-   /* @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        // Save the user's current game state
-        savedInstanceState.putInt("position",mPosition);
-
-        // Always call the superclass so it can save the view hierarchy state
-        super.onSaveInstanceState(savedInstanceState);
-    }
-
-    public void onRestoreInstanceState(Bundle savedInstanceState) {
-        // Restore state members from saved instance
-        mPosition = savedInstanceState.getInt("position");
-    }*/
     public void setMovieListener(MovieListener mListener){
         movieListener=mListener;
     }
@@ -142,7 +124,6 @@ public class MoviesFragment extends Fragment {
         Detail detail;
         private ArrayList<Detail> getMoviePath(String moviesData)
                 throws JSONException {
-
             final String POSTER_BASE_URL = "http://image.tmdb.org/t/p/";
             final String SIZE = "w185";
             final String RESULTS = "results";
@@ -182,14 +163,13 @@ public class MoviesFragment extends Fragment {
             HttpURLConnection urlConnection = null;
             BufferedReader reader = null;
             String moviesJsonStr = null;
-            //  String format = "json";
             try {
                 Uri builtUri = null;
                 final String MOVIES_BASE_URL = "http://api.themoviedb.org/3/movie/popular?";
                 final String MOVIES_BASE_URL1 = "http://api.themoviedb.org/3/movie/top_rated?";
                 final String APPID_PARAM = "api_key";
-               // Log.d(LOG_TAG, params[0]);
-                if (params[0].equals("popular")) {
+
+             if (params[0].equals("popular")) {
                     builtUri = Uri.parse(MOVIES_BASE_URL).buildUpon()
                             .appendQueryParameter(APPID_PARAM, "c3bb9ee57492adbd0b982c29b7174c7d")
                             .build();
@@ -200,7 +180,7 @@ public class MoviesFragment extends Fragment {
                 }
                 //built url
                 URL url = new URL(builtUri.toString());
-               // Log.d(LOG_TAG,url.toString());
+
                 //create the request and open the connection
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("GET");
@@ -222,7 +202,7 @@ public class MoviesFragment extends Fragment {
                     return null;
                 }
                 moviesJsonStr = buffer.toString();
-                 Log.d(LOG_TAG, moviesJsonStr);
+
             } catch (IOException e) {
                 Log.e(LOG_TAG, "Error ", e);
                 return null;
@@ -251,8 +231,8 @@ public class MoviesFragment extends Fragment {
             super.onPostExecute(urls);
             gridViewAdapter.adapter(urls);
             gridViewAdapter.notifyDataSetChanged();
-
-
+            if(movieListener.getPane()){
+                movieListener.setSelectedMovie(urls.get(0));}
         }
 
     }

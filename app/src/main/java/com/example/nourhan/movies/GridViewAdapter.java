@@ -45,7 +45,9 @@ public class GridViewAdapter extends BaseAdapter {
     public Object getData(int position) {
         return p.get(position);
     }
-
+/*public ArrayList<Detail>getList(){
+    return p;
+}*/
     @Override
     public long getItemId(int position) {
         return position;

@@ -26,11 +26,8 @@ import java.util.ArrayList;
  * Created by Nourhan on 9/6/2016.
  */
 public class Trailers extends AsyncTask<String,Void,ArrayList<Trailer>> {
-    DetailActivity de;
     Context context;
     View rootView;
-    LayoutInflater inflater;
-    ViewGroup container;
     ListAdapter listAdapter;
     ArrayList<Trailer> trailers=new ArrayList<Trailer>();
     private final String LOG_TAG = Trailers.class.getSimpleName();
@@ -79,7 +76,6 @@ public class Trailers extends AsyncTask<String,Void,ArrayList<Trailer>> {
             trailers.add(trailer);
         }
 return trailers;
-        //Log.d(LOG_TAG,trailers.toString());
     }
 
     @Override
@@ -126,7 +122,7 @@ return trailers;
                 return null;
             }
             trailerJsonStr = buffer.toString();
-            // Log.d(LOG_TAG, trailerJsonStr);
+
         } catch (IOException e) {
             Log.e(LOG_TAG, "Error ", e);
             return null;

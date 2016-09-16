@@ -26,12 +26,8 @@ import java.util.ArrayList;
  */
     public class Reviews extends AsyncTask<String,Void,String> {
     private final String LOG_TAG = Reviews.class.getSimpleName();
-        DetailActivity de;
         Context context;
         View rootView;
-        LayoutInflater inflater;
-        ViewGroup container;
-        private ArrayAdapter<String> itemsAdapter;
  public Reviews(Context context, View rootView) {
      this.context = context;
      this.rootView = rootView;
@@ -79,7 +75,6 @@ import java.util.ArrayList;
                 //built url
                 URL url1 = new URL(builtUri1.toString());
 
-                //Log.d(LOG_TAG, url.toString());
 
                 //create the request and open the connection
                 urlConnection1 = (HttpURLConnection) url1.openConnection();
@@ -104,7 +99,7 @@ import java.util.ArrayList;
                     return null;
                 }
                 reviewsJsonStr = buffer1.toString();
-                //Log.d(LOG_TAG, reviewsJsonStr);
+
             } catch (IOException e) {
                 Log.e(LOG_TAG, "Error ", e);
                 return null;
