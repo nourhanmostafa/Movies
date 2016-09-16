@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="20dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:layout_toRightOf="@+id/trailer_item1"
+    android:id="@+id/trailer_item2"
+    android:layout_centerVertical="true"/>
+
+<ImageButton xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="50dp"
+    android:layout_height="50dp"
+    android:id="@+id/trailer_item1"
+    android:background="@drawable/images"
+    android:clickable="true"
+    android:onClick="onClick"
+    android:layout_margin="20dp"/>
+
+
+</RelativeLayout>
